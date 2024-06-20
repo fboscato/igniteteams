@@ -6,6 +6,8 @@ import { Input } from "@/components/Input";
 import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { groupCreate } from "@storage/group/groupCreate";
+import { AppError } from "src/util/AppError";
+import { Alert } from "react-native";
 
 export function NewGroup() {
   const [group, setGroup] = useState('')
@@ -17,7 +19,12 @@ export function NewGroup() {
       navigator.navigate('players', { group })
 
     } catch (error) {
-      console.log(error)
+      if (error instanceof AppError) {
+        Alert.alert("Novo Gropo", error.menssage)
+      } else {
+        Alert.alert("Novo Gropo", "Nã o foi possivel criar o grupo")
+        console.log(error)
+      }
     }
   }
   return (
