@@ -10,15 +10,20 @@ import { useState } from "react";
 import { PlayerCard } from "@/components/PlayerCard";
 import { ListEmpty } from "@/components/ListemEmpty";
 import { Button } from "@/components/Button";
-
+import { useRoute } from "@react-navigation/native";
+type RouteParams ={
+  group: string
+}
 export function Players() {
   const [team, setTeam] = useState('Time A')
   const [players, setPlayers] = useState(['Paulo', 'John', ''])
+  const route = useRoute()
+  const {group} = route.params as RouteParams
   return (
     <Container>
       <Header showBackButton />
       <Highlight
-        title="Nome da turna"
+        title={group}
         subtitle="adicione a lagera e separe os times"
       />
       <Form>

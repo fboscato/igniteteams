@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { FlatList } from "react-native"
 import { Text } from 'react-native';
 import { Container, } from './styles'
@@ -7,13 +7,25 @@ import { Highlight } from '@/components/Highlight';
 import { GroupCard } from '@/components/CroupCard';
 import { ListEmpty } from "@/components/ListemEmpty";
 import { Button } from "@/components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { groupsGetAll } from "@storage/group/groupGetAll";
 export function Groups() {
-  const [groups, setGroup] = useState([])
+  const [groups, setGroups] = useState<string[]>([])
   const navigation = useNavigation()
-  function handleNewGroups(){
-    navigation.navigate('new')    
+  function handleNewGroups() {
+    navigation.navigate('new')
   }
+  async function fetchGroup() {
+    try {
+    const data = await groupsGetAll()
+    setGroups(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useFocusEffect(useCallback(()=>{
+    fetchGroup()
+  },[])) 
   return (
     <Container>
       <Header />
@@ -30,7 +42,7 @@ export function Groups() {
             title={item}
           />
         )}
-        contentContainerStyle={groups.length === 0 && {flex:1}}
+        contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
           <ListEmpty
             message="Nenhuma turma cadastrada"
