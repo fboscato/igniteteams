@@ -15,6 +15,9 @@ export function NewGroup() {
   const navigator = useNavigation()
   async function handleNew() {
     try {
+      if(group.trim().length === 0) {
+        return Alert.alert("Novo Gropo", "Informe o nome da turma")
+      }
       await groupCreate(group)
       navigator.navigate('players', { group })
 
@@ -22,7 +25,7 @@ export function NewGroup() {
       if (error instanceof AppError) {
         Alert.alert("Novo Gropo", error.menssage)
       } else {
-        Alert.alert("Novo Gropo", "Nã o foi possivel criar o grupo")
+        Alert.alert("Novo Gropo", "Não foi possivel criar o grupo")
         console.log(error)
       }
     }

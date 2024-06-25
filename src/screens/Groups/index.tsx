@@ -12,6 +12,7 @@ import { groupsGetAll } from "@storage/group/groupGetAll";
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([])
   const navigation = useNavigation()
+
   function handleNewGroups() {
     navigation.navigate('new')
   }
@@ -23,6 +24,13 @@ export function Groups() {
       console.log(error)
     }
   }
+
+  function handleOpenGroups(group: string) {
+    navigation.navigate('players',{group})
+
+
+  }
+
   useFocusEffect(useCallback(()=>{
     fetchGroup()
   },[])) 
@@ -40,6 +48,7 @@ export function Groups() {
         renderItem={({ item }) => (
           <GroupCard
             title={item}
+            onPress={() =>handleOpenGroups(item)}
           />
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
