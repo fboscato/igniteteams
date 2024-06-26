@@ -59,10 +59,12 @@ export function Players() {
       setIsLoading(true)
       const playersByTeam = await playerGetByGroupAndTeam(group, team)
       setPlayers(playersByTeam)
-      setIsLoading(false)
+
     } catch (error) {
       console.log("error", error)
       Alert.alert('Não foi possiver carregar as pessoas')
+    } finally {
+      setIsLoading(false)
     }
 
   }
@@ -81,12 +83,12 @@ export function Players() {
       navigation.navigate('groups')
     } catch (error) {
       console.log(error)
-      Alert.alert('Não foi possivel remover o grupo')
+      Alert.alert('Não foi possivel remover a turma')
     }
   }
 
   async function handleGroupRemove() {
-    Alert.alert("Remover", 'Deseja remover o grupo?',
+    Alert.alert("Remover", 'Deseja remover a turma?',
       [
         { text: 'Não', style: 'cancel' },
         { text: 'Sim', onPress: () => groupRemove() }
