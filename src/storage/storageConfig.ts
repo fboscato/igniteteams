@@ -1,5 +1,5 @@
 const GROUP_COLLECTION = '@ignite-teams:groups'
-const PLAUER_COLLECTION = '@ignite-teams:players'
+const PLAYER_COLLECTION = '@ignite-teams:players'
 
 
-export {GROUP_COLLECTION, PLAUER_COLLECTION}
+export {GROUP_COLLECTION, PLAYER_COLLECTION}
